@@ -1,0 +1,32 @@
+int Buzz=4;  //Buzzer pin
+int PIR=2;  //PIR pin
+int val=0;  //Initializing the value as zero at the beginning
+int temppin=A0;
+float temp=0;
+
+void setup(){
+  Serial.begin(9600);
+  pinMode(Buzz,OUTPUT);
+  pinMode(PIR,INPUT);
+}
+void loop(){
+  //code for PIR sensor
+  val=digitalRead(PIR);  //The value read from pin 3 will be assigned to 'val'
+  if (val==1){
+    digitalWrite(Buzz,HIGH);
+    Serial.println("Movement Detected");
+  }
+  else{
+    digitalWrite(Buzz,LOW);
+    Serial.println("Movement not detected");
+  }
+  //code for temp sensor
+  temp=analogRead(temppin);
+  temp=temp*0.48828125;
+  Serial.println(temp);
+  delay(1000);
+  if (temp>60)
+    { digitalWrite(Buzz,HIGH); }
+  else 
+    { digitalWrite(Buzz,LOW); }
+}
